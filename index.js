@@ -155,8 +155,8 @@ async function main() {
             if (webhook_res.status !== 'ok') return console.error(`❗️ Monobank webhook setup problem`, webhook_res)
             console.log(`✅ Monobank webhook setup success`)
 
-            await tgbot.telegram.setWebhook(APP_DOMAIN + '/' + TG_WEBHOOK)
-            initBot(tgbot, true)
+            // await tgbot.telegram.setWebhook(APP_DOMAIN + '/' + TG_WEBHOOK)
+            initBot(tgbot, false)
           
             console.log(`Started server on port ${port}`);
         });
