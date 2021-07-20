@@ -136,6 +136,18 @@ async function main() {
     if (APP_MODE === 'webhook') {
         const app = express()
         const port = process.env.PORT || 8080
+        const queue = [];
+        let isCurrentlyWaiting = false;
+        
+        setInterval(() => {
+            if (queue.length > 0 && !isCurrentlyWaiting) {
+                isCurrentlyWaiting = true
+                await processTransaction(queue[0], tgbot, doc);
+                queue.shift();
+                isCurrentlyWaiting = false;
+            }
+        }, 100)
+        
 
         app.use(express.json());
         app.use(tgbot.webhookCallback('/' + TG_WEBHOOK))
@@ -144,7 +156,7 @@ async function main() {
             console.log(req.body, req.body.data)
             res.send('Thx!')
             if (req.body.type === 'StatementItem' && req.body.data.account === ACCOUNT_ID) {
-                await processTransaction(req.body.data.statementItem, tgbot, doc);
+                queue.push(req.body.data.statementItem)
             }
         })
 
