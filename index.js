@@ -142,7 +142,9 @@ async function main() {
 
         app.post(`/${MONO_WEBOOK}`, async (req, res) => {
             console.log(req.body, req.body.data)
-            await processTransaction(req.body.data, tgbot, doc);
+            if (req.body.type === 'StatementItem' || req.body.data.account === ACCOUNT_ID) {
+                await processTransaction(req.body.data, tgbot, doc);
+            }
             return res.send('Thx!')
         })
 
