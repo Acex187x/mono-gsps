@@ -153,7 +153,6 @@ async function main() {
         app.use(tgbot.webhookCallback('/' + TG_WEBHOOK))
 
         app.post(`/${MONO_WEBOOK}`, async (req, res) => {
-            console.log(req.body, req.body.data)
             res.send('Thx!')
             if (req.body.type === 'StatementItem' && req.body.data.account === ACCOUNT_ID) {
                 queue.push(req.body.data.statementItem)
