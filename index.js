@@ -151,11 +151,11 @@ async function main() {
         const server = app.listen(port, async () => {
             const port = server.address().port;
 
-            // // const webhook_res = await mono.setWebhook(APP_DOMAIN + '/' + MONO_WEBOOK)
-            // // if (webhook_res.status !== 'ok') return console.error(`❗️ Monobank webhook setup problem`, webhook_res)
-            // // console.log(`✅ Monobank webhook setup success`)
+            const webhook_res = await mono.setWebhook(APP_DOMAIN + '/' + MONO_WEBOOK)
+            if (webhook_res.status !== 'ok') return console.error(`❗️ Monobank webhook setup problem`, webhook_res)
+            console.log(`✅ Monobank webhook setup success`)
 
-            // await tgbot.telegram.setWebhook(APP_DOMAIN + '/' + TG_WEBHOOK)
+            await tgbot.telegram.setWebhook(APP_DOMAIN + '/' + TG_WEBHOOK)
             initBot(tgbot, true)
           
             console.log(`Started server on port ${port}`);
