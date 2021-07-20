@@ -139,7 +139,7 @@ async function main() {
         const queue = [];
         let isCurrentlyWaiting = false;
         
-        setInterval(() => {
+        setInterval(async () => {
             if (queue.length > 0 && !isCurrentlyWaiting) {
                 isCurrentlyWaiting = true
                 await processTransaction(queue[0], tgbot, doc);
